@@ -2,11 +2,15 @@
 opcion1() {
     local ruta
     read -p "ingrese la ruta de la carpeta: " ruta
-    local resultado=$(echo -n "hola" | wc -l)
-    echo "$resultado"
- }
+    local total_files=$(find $ruta -type f  | wc -l)
+    local this_directory_files=$(find $ruta -maxdepth 1 -type f | wc -l)
+    local subdirectory_files
+    ((subdirectory_files = total_files - this_directory_files))
 
-# find "$ruta" -type f | wc -l
+    echo "Archivos en este directorio: $this_directory_files"
+    echo "Archivos en subdirectorios: $subdirectory_files"
+    echo "Total de archivos: $total_files"
+ }
 
 clear
  while true; do
